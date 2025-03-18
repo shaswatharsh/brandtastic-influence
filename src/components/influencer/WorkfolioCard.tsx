@@ -3,7 +3,8 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { MessageSquare, Link } from 'lucide-react';
+import { Link } from 'lucide-react';
+import MessageButton from '@/components/chat/MessageButton';
 
 interface WorkfolioCardProps {
   name: string;
@@ -83,10 +84,10 @@ export const WorkfolioCard = ({
               <Link className="h-4 w-4 mr-1" />
               View Profile
             </Button>
-            <Button variant="outline" size="sm" className="flex-1 h-9">
-              <MessageSquare className="h-4 w-4 mr-1" />
-              Message
-            </Button>
+            <MessageButton 
+              className="flex-1 h-9" 
+              username={name}
+            />
           </div>
         </div>
       </CardContent>
