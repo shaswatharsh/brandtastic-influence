@@ -142,9 +142,9 @@ export const MessageProvider: React.FC<{ children: React.ReactNode }> = ({ child
         
         // Only send notifications if not the active contact
         if (!activeContact || activeContact.id !== contactId) {
-          const newMessage = {
+          const newMessage: Message = {
             id: Date.now().toString(),
-            sender: 'them',
+            sender: "them" as const,
             content: `Hey there! Just checking in about our collaboration. This is an automated message for demo purposes.`,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           };
@@ -185,9 +185,9 @@ export const MessageProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const sendMessage = (contactId: string, content: string) => {
     if (!content.trim()) return;
     
-    const newMessage = {
+    const newMessage: Message = {
       id: Date.now().toString(),
-      sender: 'me',
+      sender: "me" as const,
       content,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
