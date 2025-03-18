@@ -40,7 +40,11 @@ const Messages = () => {
   // Mark messages as read when active contact changes
   useEffect(() => {
     if (activeContact) {
-      markAsRead(activeContact.id);
+      const contactId = activeContact.id;
+      // This prevents the infinite loop by only marking as read when there are unread messages
+      if (activeContact.unread > 0) {
+        markAsRead(contactId);
+      }
     }
   }, [activeContact, markAsRead]);
 
