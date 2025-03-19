@@ -8,12 +8,14 @@ import { Input } from "@/components/ui/input";
 import ChatHeader from "@/components/chat/ChatHeader";
 import MessageList from "@/components/chat/MessageList";
 import ContactList from "@/components/chat/ContactList";
+import DealProposal from "@/components/chat/DealProposal";
 import { useMessages } from "@/contexts/MessageContext";
 import { 
   Send, 
   PaperclipIcon, 
   Image, 
   Smile, 
+  FileText
 } from "lucide-react";
 
 const Messages = () => {
@@ -28,6 +30,7 @@ const Messages = () => {
   
   const [newMessage, setNewMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [showDealProposal, setShowDealProposal] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Scroll to bottom when messages change
@@ -82,6 +85,16 @@ const Messages = () => {
                   <>
                     <ChatHeader contact={activeContact} />
                     
+                    {/* Deal proposal form */}
+                    {showDealProposal && (
+                      <div className="p-4 border-b border-border">
+                        <DealProposal 
+                          contactId={activeContact.id}
+                          onClose={() => setShowDealProposal(false)}
+                        />
+                      </div>
+                    )}
+                    
                     {/* Messages */}
                     <MessageList 
                       messages={messages[activeContact.id] || []}
@@ -90,6 +103,16 @@ const Messages = () => {
 
                     {/* Message input */}
                     <div className="p-4 border-t border-border">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Button 
+                          variant={showDealProposal ? "default" : "outline"} 
+                          size="sm" 
+                          onClick={() => setShowDealProposal(!showDealProposal)}
+                        >
+                          <FileText className="h-4 w-4 mr-1" />
+                          {showDealProposal ? 'Cancel Proposal' : 'Create Deal Proposal'}
+                        </Button>
+                      </div>
                       <form onSubmit={handleSendMessage} className="flex items-center gap-2">
                         <Button variant="ghost" size="icon" type="button">
                           <PaperclipIcon className="h-5 w-5 text-muted-foreground" />
